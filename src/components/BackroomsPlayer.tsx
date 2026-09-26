@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Pause, Play, Volume1, Volume2, VolumeX } from 'lucide-react'
+import { Pause, Play, Volume1, Volume2, VolumeX, X } from 'lucide-react'
 
 // Easter-egg background layer: the backrooms still + a floating horizontal
 // volume mixer for the accompanying track. Sits behind every section — the
@@ -8,6 +8,7 @@ export default function BackroomsPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [playing, setPlaying] = useState(false)
   const [volume, setVolume] = useState(0.18)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.volume = volume
@@ -73,8 +74,30 @@ export default function BackroomsPlayer() {
 
       <audio ref={audioRef} src="/backr00ms.mp3" loop preload="none" />
 
-      {/* mixer */}
-      <div className="fixed bottom-4 right-4 z-40 w-[min(320px,88vw)] rounded-lg border border-ink-700 bg-ink-900/80 px-4 py-3 font-mono shadow-2xl shadow-black/50 backdrop-blur">
+      {/* collapsed launcher — sits on the right edge, closed by default */}
+      <button
+        onClick={() => setOpen(true)}
+        aria-label="open player"
+        aria-hidden={open}
+        tabIndex={open ? -1 : 0}
+        style={{ transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
+        className={`fixed bottom-4 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-ink-700 bg-ink-900/80 text-bone-100 shadow-2xl shadow-black/50 backdrop-blur transition-all duration-[400ms] hover:border-accent-400 hover:text-accent-400 ${
+          open ? 'scale-0 opacity-0 pointer-events-none' : 'scale-100 opacity-100'
+        }`}
+      >
+        {playing ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
+      </button>
+
+      {/* mixer — flies out from the launcher's spot when opened */}
+      <div
+        style={{ transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
+        className={`fixed bottom-4 right-4 z-40 w-[min(320px,88vw)] origin-bottom-right rounded-lg border border-ink-700 bg-ink-900/80 px-4 py-3 font-mono shadow-2xl shadow-black/50 backdrop-blur transition-all duration-500 ${
+          open
+            ? 'translate-x-0 scale-100 opacity-100'
+            : 'translate-x-10 scale-50 opacity-0 pointer-events-none'
+        }`}
+        aria-hidden={!open}
+      >
         <div className="flex items-center gap-3">
           <button
             onClick={toggle}
@@ -90,6 +113,14 @@ export default function BackroomsPlayer() {
           </div>
 
           <VolIcon size={14} className="flex-none text-bone-500" />
+
+          <button
+            onClick={() => setOpen(false)}
+            aria-label="close player"
+            className="flex-none text-bone-500 transition-colors hover:text-bone-100"
+          >
+            <X size={14} />
+          </button>
         </div>
 
         <input
