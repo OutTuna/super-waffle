@@ -1,9 +1,10 @@
 import { techStack } from '../data/content'
+import FadeInView from './FadeInView'
 
 export default function TechStack() {
   return (
     <section id="stack" className="scroll-mt-20 px-6 py-6 sm:px-10 sm:py-8">
-      <div className="mx-auto max-w-[880px]">
+      <FadeInView variant="fade" duration={1100} className="mx-auto max-w-[880px]">
         <p className="prompt font-mono text-sm text-bone-300">ls tech-stack/</p>
         <div className="mt-4 flex flex-wrap gap-2.5">
           {techStack.map((tech) => (
@@ -15,7 +16,7 @@ export default function TechStack() {
             </span>
           ))}
         </div>
-      </div>
+      </FadeInView>
     </section>
   )
 }

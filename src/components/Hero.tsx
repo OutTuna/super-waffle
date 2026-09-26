@@ -1,30 +1,19 @@
-import { useEffect, useState } from 'react'
 import { Command } from 'lucide-react'
 import { profile } from '../data/content'
+import { useSequentialTypewriter } from '../hooks/useSequentialTypewriter'
 
 const LINES = [
   { prompt: 'whoami', reveal: `${profile.name} (${profile.handle})` },
   { prompt: 'cat role.txt', reveal: profile.roles.join('  ·  ') },
 ]
 
-export default function Hero({ onOpenPalette }: { onOpenPalette: () => void }) {
-  const [visibleLines, setVisibleLines] = useState(0)
-  const [done, setDone] = useState(false)
+// Flattened: prompt0, reveal0, prompt1, reveal1, tagline — typed in order.
+const SEQUENCE = [LINES[0].prompt, LINES[0].reveal, LINES[1].prompt, LINES[1].reveal, profile.tagline]
 
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) {
-      setVisibleLines(LINES.length)
-      setDone(true)
-      return
-    }
-    if (visibleLines >= LINES.length) {
-      setDone(true)
-      return
-    }
-    const t = setTimeout(() => setVisibleLines((v) => v + 1), 500 + visibleLines * 450)
-    return () => clearTimeout(t)
-  }, [visibleLines])
+export default function Hero({ onOpenPalette }: { onOpenPalette: () => void }) {
+  const { revealed, activeIndex } = useSequentialTypewriter(SEQUENCE, 24, 380, true)
+
+  const Caret = () => <span className="caret ml-0.5" />
 
   return (
     <header className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 pb-20">
@@ -40,16 +29,36 @@ export default function Hero({ onOpenPalette }: { onOpenPalette: () => void }) {
           </div>
 
           <div className="px-5 py-7 sm:px-8 sm:py-10 font-mono text-sm sm:text-base leading-relaxed">
-            {LINES.map((line, i) => (
-              <div key={line.prompt} className={i < visibleLines ? 'mb-3' : 'mb-3 opacity-0'}>
-                <p className="prompt text-bone-300">{line.prompt}</p>
-                {i < visibleLines && <p className="mt-1 text-bone-100">{line.reveal}</p>}
-              </div>
-            ))}
+            <div className={activeIndex >= 0 ? 'mb-3' : 'mb-3 opacity-0'}>
+              <p className="prompt text-bone-300">
+                {revealed[0]}
+                {activeIndex === 0 && <Caret />}
+              </p>
+              {activeIndex >= 1 && (
+                <p className="mt-1 text-bone-100">
+                  {revealed[1]}
+                  {activeIndex === 1 && <Caret />}
+                </p>
+              )}
+            </div>
+
+            <div className={activeIndex >= 2 ? 'mb-3' : 'mb-3 opacity-0'}>
+              <p className="prompt text-bone-300">
+                {revealed[2]}
+                {activeIndex === 2 && <Caret />}
+              </p>
+              {activeIndex >= 3 && (
+                <p className="mt-1 text-bone-100">
+                  {revealed[3]}
+                  {activeIndex === 3 && <Caret />}
+                </p>
+              )}
+            </div>
+
             <p className="prompt text-bone-300">
-              {done ? (
+              {activeIndex >= 4 ? (
                 <span className="text-bone-100">
-                  {profile.tagline}
+                  {revealed[4]}
                   <span className="caret ml-1" />
                 </span>
               ) : (
