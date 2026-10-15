@@ -18,7 +18,7 @@ export default function HomePage() {
           <em>Less friction.</em>
         </h1>
         <p className="lead">
-          I’m trapmagistr. I build apps, automate the repetitive,
+          I’m Gleb. I build apps, automate the repetitive,
           <br className="desktop-break" /> and figure out how things work.
           Sometimes I make music.
         </p>

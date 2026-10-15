@@ -1,5 +1,5 @@
 export const profile = {
-  name: 'trapmagistr',
+  name: 'Gleb',
   handle: 'OutTuna',
   tagline: 'I automate the everyday.',
   github: 'https://github.com/OutTuna',
@@ -11,7 +11,7 @@ export const profile = {
   ],
 }
 export const about = [
-  'I’m trapmagistr, also known as OutTuna. I build small applications, scripts and experiments that take the repetition out of everyday things.',
+  'I’m Gleb, also known as OutTuna. I build small applications, scripts and experiments that take the repetition out of everyday things.',
   'My interests sit somewhere between systems programming, reverse engineering and making software a little more useful. When I’m away from the editor, I make music.',
 ]
 export const now = [

@@ -7,7 +7,7 @@ export default function AboutPage() {
       <header className="page-heading">
         <p className="eyebrow">THE PERSON BEHIND THE CODE</p>
         <h1>
-          Hi, I’m trapmagistr.
+          Hi, I’m Gleb.
           <br />
           <em>OutTuna, online.</em>
         </h1>
@@ -30,7 +30,7 @@ export default function AboutPage() {
           <div className="profile-monogram" aria-hidden="true">
             ot<span>✦</span>
           </div>
-          <p className="eyebrow">OUTTUNA / TRAPMAGISTR</p>
+          <p className="eyebrow">OUTTUNA / GLEB</p>
           <p>
             Part developer.
             <br />
