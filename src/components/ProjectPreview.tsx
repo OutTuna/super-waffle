@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n'
 import { ArrowUpRight, Braces, Folder, GitBranch, Terminal } from 'lucide-react'
 import type { Project } from '../data/content'
 
@@ -8,6 +9,7 @@ export default function ProjectPreview({
   project: Project
   index: number
 }) {
+  const { t } = useI18n()
   const native = project.slug === 'dota-config'
   return (
     <a
@@ -15,7 +17,7 @@ export default function ProjectPreview({
       href={project.href}
       target="_blank"
       rel="noreferrer"
-      aria-label={`Explore ${project.name} on GitHub`}
+      aria-label={t('Explore {name} on GitHub', { name: t(project.name) })}
     >
       <div className="preview-chrome">
         <span className="window-dots" aria-hidden="true">
@@ -35,7 +37,9 @@ export default function ProjectPreview({
         </div>
         <div className="preview-content">
           <div className="preview-kicker">
-            <span>PROJECT / 0{index + 1}</span>
+            <span>
+              {t('PROJECT')} / 0{index + 1}
+            </span>
             <span>{native ? 'C++' : 'RUST + TYPESCRIPT'}</span>
           </div>
           <div className="preview-symbol" aria-hidden="true">
@@ -49,28 +53,28 @@ export default function ProjectPreview({
               </span>
             )}
           </div>
-          <h3>{project.name}</h3>
+          <h3>{t(project.name)}</h3>
           <p>
             {native
-              ? 'Your setup. Another account.'
-              : 'Your store. Without the game.'}
+              ? t('Your setup. Another account.')
+              : t('Your store. Without the game.')}
           </p>
           <div className="architecture">
-            <span>{native ? 'CONFIG' : 'REACT'}</span>
+            <span>{native ? t('CONFIG') : 'REACT'}</span>
             <span aria-hidden="true">→</span>
-            <span>{native ? 'BACKUP' : 'TAURI'}</span>
+            <span>{native ? t('BACKUP') : 'TAURI'}</span>
             <span aria-hidden="true">→</span>
-            <span>{native ? 'COPY' : 'RUST'}</span>
+            <span>{native ? t('COPY') : 'RUST'}</span>
           </div>
         </div>
       </div>
       <div className="preview-caption">
         <span>
-          {project.category} application ·{' '}
-          {project.stack.slice(0, 2).join(' / ')}
+          {t('Desktop application')} · {project.stack.slice(0, 2).join(' / ')}
         </span>
         <span>
-          View source <ArrowUpRight size={12} />
+          {t('View source')}
+          <ArrowUpRight size={12} />
         </span>
       </div>
     </a>

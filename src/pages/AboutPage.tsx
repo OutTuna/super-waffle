@@ -1,21 +1,23 @@
+import { useI18n } from '../i18n'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { about, now, profile, techGroups } from '../data/content'
 
 export default function AboutPage() {
+  const { t } = useI18n()
   return (
     <div className="wrap page about-page">
       <header className="page-heading">
-        <p className="eyebrow">THE PERSON BEHIND THE CODE</p>
+        <p className="eyebrow">{t('THE PERSON BEHIND THE CODE')}</p>
         <h1>
-          Hi, I’m Gleb.
+          {t('Hi, I’m Gleb.')}
           <br />
-          <em>OutTuna, online.</em>
+          <em>{t('OutTuna, online.')}</em>
         </h1>
       </header>
       <div className="about-intro">
         <div className="about-copy">
           {about.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
+            <p key={t(paragraph)}>{t(paragraph)}</p>
           ))}
           <a
             className="text-link"
@@ -30,51 +32,54 @@ export default function AboutPage() {
           <div className="profile-monogram" aria-hidden="true">
             ot<span>✦</span>
           </div>
-          <p className="eyebrow">OUTTUNA / GLEB</p>
+          <p className="eyebrow">{t('OUTTUNA / GLEB')}</p>
           <p>
-            Part developer.
+            {t('Part developer.')}
             <br />
-            Part musician.
+            {t('Part musician.')}
             <br />
-            <em>Entirely curious.</em>
+            <em>{t('Entirely curious.')}</em>
           </p>
           <div className="profile-card-rule" />
-          <span className="mono">Making things, figuring things out.</span>
+          <span className="mono">
+            {t('Making things, figuring things out.')}
+          </span>
         </aside>
       </div>
       <section className="about-section">
-        <p className="eyebrow">RIGHT NOW</p>
+        <p className="eyebrow">{t('RIGHT NOW')}</p>
         <h2>
-          Somewhere between
+          {t('Somewhere between')}
           <br />
-          learning and building.
+          {t('learning and building.')}
         </h2>
         <div className="now-grid">
           {now.map((item, index) => (
             <article key={item.title}>
               <span className="mono">
-                0{index + 1} / {item.title.toUpperCase()}
+                0{index + 1} / {t(item.title).toUpperCase()}
               </span>
-              <p>{item.text}</p>
+              <p>{t(item.text)}</p>
             </article>
           ))}
         </div>
       </section>
       <section className="about-section">
-        <p className="eyebrow">THE TOOLBOX</p>
+        <p className="eyebrow">{t('THE TOOLBOX')}</p>
         <h2>
-          Different tools.
+          {t('Different tools.')}
           <br />
-          The same curiosity.
+          {t('The same curiosity.')}
         </h2>
         <p className="section-description">
-          Technologies I use, learn and experiment with. The project decides the
-          tool.
+          {t(
+            'Technologies I use, learn and experiment with. The project decides the tool.',
+          )}
         </p>
         <div className="toolbox">
           {techGroups.map((group) => (
-            <div className="toolbox-row" key={group.name}>
-              <h3>{group.name}</h3>
+            <div className="toolbox-row" key={t(group.name)}>
+              <h3>{t(group.name)}</h3>
               <div className="tags">
                 {group.items.map((item) => (
                   <span key={item}>{item}</span>
@@ -86,14 +91,17 @@ export default function AboutPage() {
       </section>
       <div className="contact-panel">
         <div>
-          <p className="eyebrow">FOLLOW THE THREAD</p>
-          <h2>Curious what that looks like?</h2>
+          <p className="eyebrow">{t('FOLLOW THE THREAD')}</p>
+          <h2>{t('Curious what that looks like?')}</h2>
           <p>
-            The projects are a better introduction than a list of technologies.
+            {t(
+              'The projects are a better introduction than a list of technologies.',
+            )}
           </p>
         </div>
         <a className="button" href="#/projects">
-          Browse the archive <ArrowRight size={16} />
+          {t('Browse the archive')}
+          <ArrowRight size={16} />
         </a>
       </div>
     </div>

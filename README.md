@@ -49,3 +49,16 @@ from this data; no external API or credentials are required.
 - Design inspired by [NullMoth Systems](https://nullmothsystems.com/).
 - No external fonts, analytics, background audio or API requests are loaded.
 - Deploy anywhere static: Vercel, Netlify, GitHub Pages, Cloudflare Pages.
+
+## Languages
+
+English is the default for first-time visitors. The header language selector also
+supports Ukrainian (`uk`) and Russian (`ru`), and remembers the selection in
+`localStorage` under `outtuna-language`. If storage is unavailable, switching still
+works for the current visit.
+
+`src/i18n.tsx` provides the React context, interpolation and project-count plural
+rules. `src/translations.json` maps original English phrases to Ukrainian and
+Russian translations (in that order). Project URLs, category identifiers and
+technology names stay stable across languages. Keep new UI copy and accessibility
+labels in the translation dictionary; the existing font families support Cyrillic.

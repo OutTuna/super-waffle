@@ -1748,3 +1748,42 @@ kbd {
     scroll-behavior: auto !important;
   }
 }
+
+.language-picker select {
+  min-height: 36px;
+  padding: 4px 5px;
+  border: 1px solid var(--line-bright);
+  background: var(--panel);
+  color: var(--text);
+  font: 11px var(--mono);
+  cursor: pointer;
+}
+.language-picker select:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+html:not([lang='en']) .project-card-meta,
+html:not([lang='en']) .preview-caption,
+html:not([lang='en']) .filter-tabs {
+  flex-wrap: wrap;
+}
+@media (max-width: 760px) {
+  .header-actions {
+    gap: 9px;
+  }
+  .header-bar {
+    column-gap: 10px;
+  }
+  html:not([lang='en']) .hero h1 {
+    font-size: clamp(40px, 8vw, 68px);
+    overflow-wrap: anywhere;
+  }
+  html:not([lang='en']) .page-heading h1 {
+    overflow-wrap: anywhere;
+  }
+}
+@media (max-width: 390px) {
+  .header-actions .button {
+    display: none;
+  }
+}

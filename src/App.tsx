@@ -1,3 +1,4 @@
+import { useI18n } from './i18n'
 import { useEffect, useRef, useState } from 'react'
 import SiteHeader from './components/SiteHeader'
 import Footer from './components/Footer'
@@ -8,6 +9,7 @@ import AboutPage from './pages/AboutPage'
 import { useRoute } from './hooks/useRoute'
 
 export default function App() {
+  const { t } = useI18n()
   const route = useRoute()
   const [paletteOpen, setPaletteOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
@@ -20,14 +22,14 @@ export default function App() {
     }
     const title =
       route === '/'
-        ? 'Small tools. Less friction.'
+        ? t('Small tools. Less friction.')
         : route === '/projects'
-          ? 'Projects'
+          ? t('Projects')
           : route === '/about'
-            ? 'About'
-            : 'Page not found'
+            ? t('About')
+            : t('Page not found')
     document.title = `${title} — OutTuna`
-  }, [route])
+  }, [route, t])
   return (
     <>
       <div className="starfield" aria-hidden="true">
@@ -43,7 +45,7 @@ export default function App() {
           mainRef.current?.focus()
         }}
       >
-        Skip to content
+        {t('Skip to content')}
       </a>
       <SiteHeader route={route} onSearch={() => setPaletteOpen(true)} />
       <main ref={mainRef} id="main" tabIndex={-1}>
@@ -55,17 +57,17 @@ export default function App() {
           <AboutPage />
         ) : (
           <section className="wrap page not-found">
-            <p className="eyebrow">404 / Lost in the stars</p>
+            <p className="eyebrow">{t('404 / Lost in the stars')}</p>
             <h1>
-              Nothing here.
+              {t('Nothing here.')}
               <br />
-              <em>Yet.</em>
+              <em>{t('Yet.')}</em>
             </h1>
             <p className="lead">
-              That page doesn’t exist. There’s still plenty to explore.
+              {t('That page doesn’t exist. There’s still plenty to explore.')}
             </p>
             <a className="button" href="#/">
-              Back to home
+              {t('Back to home')}
             </a>
           </section>
         )}

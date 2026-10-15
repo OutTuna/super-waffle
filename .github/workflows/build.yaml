@@ -1,8 +1,8 @@
-name: Deploy to GitHub Pages
+name: Build and deploy
 
 on:
   push:
-    branches: [master]
+    branches: [redesign/local-preview, master]
   workflow_dispatch:
 
 permissions:
@@ -34,14 +34,17 @@ jobs:
         run: npm run build
 
       - name: Setup Pages
+        if: github.ref == 'refs/heads/master'
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
+    if: github.ref == 'refs/heads/master'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

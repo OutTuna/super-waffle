@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n'
 import { useEffect, useState } from 'react'
 import { Command } from 'cmdk'
 import { ArrowUpRight, CornerDownLeft, Search, X } from 'lucide-react'
@@ -10,6 +11,7 @@ export default function CommandPalette({
   open: boolean
   onOpenChange: (open: boolean) => void
 }) {
+  const { t } = useI18n()
   const [search, setSearch] = useState('')
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
@@ -33,7 +35,7 @@ export default function CommandPalette({
     <Command.Dialog
       open={open}
       onOpenChange={onOpenChange}
-      label="Jump to a page or project"
+      label={t('Jump to a page or project')}
       contentClassName="command-dialog"
       loop
     >
@@ -42,22 +44,25 @@ export default function CommandPalette({
         <Command.Input
           value={search}
           onValueChange={setSearch}
-          placeholder="Find a page or project…"
+          placeholder={t('Find a page or project\u2026')}
         />
-        <button onClick={() => onOpenChange(false)} aria-label="Close search">
+        <button
+          onClick={() => onOpenChange(false)}
+          aria-label={t('Close search')}
+        >
           <X size={18} />
         </button>
       </div>
-      <Command.List>
+      <Command.List label={t('Suggestions')}>
         <Command.Empty>
-          No matches. Try a project name or language.
+          {t('No matches. Try a project name or language.')}
         </Command.Empty>
-        <Command.Group heading="Pages">
+        <Command.Group heading={t('Pages')}>
           {[
-            ['Home', '#/'],
-            ['Projects', '#/projects'],
-            ['About', '#/about'],
-            ['GitHub profile', profile.github],
+            [t('Home'), '#/'],
+            [t('Projects'), '#/projects'],
+            [t('About'), '#/about'],
+            [t('GitHub profile'), profile.github],
           ].map(([label, href]) => (
             <Command.Item key={href} onSelect={() => navigate(href)}>
               {label}
@@ -65,22 +70,29 @@ export default function CommandPalette({
             </Command.Item>
           ))}
         </Command.Group>
-        <Command.Group heading="Projects">
+        <Command.Group heading={t('Projects')}>
           {projects.map((project) => (
             <Command.Item
               key={project.slug}
-              value={`${project.name} ${project.stack.join(' ')} ${project.category}`}
+              value={project.slug}
+              keywords={[
+                project.name,
+                t(project.name),
+                ...project.stack,
+                project.category,
+                t(project.category),
+              ]}
               onSelect={() => navigate(project.href)}
             >
-              {project.name}
+              {t(project.name)}
               <ArrowUpRight size={14} />
             </Command.Item>
           ))}
         </Command.Group>
       </Command.List>
       <div className="command-footer">
-        <span>↑ ↓ navigate · Enter to open</span>
-        <span>Esc to close</span>
+        <span>{t('↑ ↓ navigate · Enter to open')}</span>
+        <span>{t('Esc to close')}</span>
       </div>
     </Command.Dialog>
   )
