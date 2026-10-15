@@ -1,4 +1,4 @@
-# trapmagistr — portfolio
+# mental. — portfolio
 
 React 18 + TypeScript + Vite 5 + Tailwind CSS 3 + Lucide + cmdk.
 
@@ -32,7 +32,7 @@ npm run build
 npm run preview
 ```
 
-## Make it yours
+## Project structure
 
 Content lives in **`src/data/content.ts`**: profile links, biography, current
 interests, technology groups and projects. Set `featured: true` on a project
@@ -46,9 +46,6 @@ from this data; no external API or credentials are required.
 - Projects support category filters, text search and an archive toggle.
   A category can be linked directly: `#/projects?category=Desktop`.
 - Design tokens and responsive styles live in `src/index.css`.
-- The visual direction draws on NullMoth Systems: a black starfield,
-  purple panels, system serif and monospace fonts, cyan accents and
-  early-web button borders. Branding, copy and project illustrations are
-  specific to this portfolio. Preview panels are diagrams, not app screenshots.
+- Design inspired by [NullMoth Systems](https://nullmothsystems.com/).
 - No external fonts, analytics, background audio or API requests are loaded.
 - Deploy anywhere static: Vercel, Netlify, GitHub Pages, Cloudflare Pages.

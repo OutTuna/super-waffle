@@ -210,7 +210,7 @@ h3 {
   display: none;
 }
 
-/* A sparse, slow-moving sky, in the spirit of the reference's early-web backdrop. */
+/* Starfield */
 .starfield {
   position: fixed;
   inset: 0;
@@ -273,7 +273,7 @@ h3 {
   }
 }
 
-/* Navigation and the fine print beneath it. */
+/* Header */
 .site-header {
   background: #050308;
   border-bottom: 1px solid var(--line);
@@ -403,7 +403,7 @@ kbd {
   color: var(--cyan);
 }
 
-/* Home: a large serif introduction and two small windows into the work. */
+/* Home */
 .hero {
   padding-top: 67px;
   padding-bottom: 52px;
@@ -727,7 +727,7 @@ kbd {
   padding-bottom: 72px;
 }
 
-/* Project archive. Filtering and search share the same source of truth. */
+/* Projects */
 .page {
   padding-top: 64px;
   padding-bottom: 76px;
@@ -978,7 +978,7 @@ kbd {
   color: var(--soft);
 }
 
-/* A personal page, with the same visual grammar as the archive. */
+/* About */
 .about-intro {
   display: grid;
   grid-template-columns: 1.25fr 1fr;
@@ -1103,7 +1103,7 @@ kbd {
   min-height: 65vh;
 }
 
-/* Footer, with a nod to the small badges of the personal web. */
+/* Footer */
 .site-footer {
   border-top: 1px solid var(--line);
   background: #050308;
@@ -1169,7 +1169,7 @@ kbd {
   font: italic 14px var(--serif);
 }
 
-/* cmdk uses a Radix dialog: focus trap, Escape, and focus restoration included. */
+/* Command palette */
 [cmdk-overlay] {
   position: fixed;
   inset: 0;
@@ -1615,7 +1615,7 @@ kbd {
     font-size: 8px;
   }
 }
-/* Small early-web motions; the strip's pause control stops all looping layers. */
+/* Motion */
 .status-ticker {
   flex: 1;
   min-width: 0;

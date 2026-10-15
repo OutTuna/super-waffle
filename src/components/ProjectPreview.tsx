@@ -1,7 +1,6 @@
 import { ArrowUpRight, Braces, Folder, GitBranch, Terminal } from 'lucide-react'
 import type { Project } from '../data/content'
 
-// Repository diagrams, not screenshots or live application output.
 export default function ProjectPreview({
   project,
   index,
