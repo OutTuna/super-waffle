@@ -1,165 +1,180 @@
-// Edit this file to swap in your own info. Nothing else in the app
-// needs to change — every component reads from here.
-
 export const profile = {
   name: 'trapmagistr',
   handle: 'OutTuna',
-  pronouns: 'he/him',
-  tagline: 'i automate basic things',
-  location: 'Musée du Louvre',
-  utc: 'UTC+03:00',
-  roles: ['systems / low-level dev', 'reverse engineer (hobbyist)', 'musician on the side'],
-}
-
-export const about = [
-  'currently working on labs for my university',
-  'looking for help with Dota 2 SDK + VMProtect internals',
-  'currently learning C++ and Swift, properly this time',
-  "fun fact — i'm a musician who sometimes loves to do smth in coding",
-]
-
-export const socials = [{ label: 'Instagram', href: 'https://instagram.com', icon: 'instagram' }]
-
-export const techStack = [
-  'C++',
-  'JavaScript',
-  'TypeScript',
-  'Kotlin',
-  'Rust',
-  'Swift',
-  '.NET',
-  'Node.js',
-  'Next.js',
-  'Vue.js',
-  'FastAPI',
-  'MySQL',
-  'NPM',
-  'Qt',
-  'Figma',
-  'Gimp',
-  'Gradle',
-  'FFmpeg',
-  'Tampermonkey',
-]
-
-export const stats = {
-  starsEarned: 27,
-  commitsLastYear: 257,
-  totalPRs: 3,
-  totalIssues: 1,
-  totalContributions: 329,
-  contributionsSince: 'Jan 21, 2020',
-  currentStreak: 1,
-  longestStreak: 4,
-  languages: [
-    { name: 'C', pct: 77.56, color: '#888888' },
-    { name: 'C++', pct: 15.09, color: '#777777' },
-    { name: 'Swift', pct: 2.26, color: '#808080' },
-    { name: 'TypeScript', pct: 2.2, color: '#8A8A8A' },
-    { name: 'Python', pct: 1.5, color: '#7A7A7A' },
-    { name: 'JavaScript', pct: 1.38, color: '#909090' },
+  tagline: 'I automate the everyday.',
+  github: 'https://github.com/OutTuna',
+  source: 'https://github.com/OutTuna/super-waffle',
+  roles: [
+    'Systems & low-level development',
+    'Reverse engineering',
+    'Music on the side',
   ],
 }
-
+export const about = [
+  'I’m trapmagistr, also known as OutTuna. I build small applications, scripts and experiments that take the repetition out of everyday things.',
+  'My interests sit somewhere between systems programming, reverse engineering and making software a little more useful. When I’m away from the editor, I make music.',
+]
+export const now = [
+  {
+    title: 'Building',
+    text: 'University labs, small utilities and personal experiments.',
+  },
+  {
+    title: 'Learning',
+    text: 'Going deeper into C++ and Swift, properly this time.',
+  },
+  {
+    title: 'Exploring',
+    text: 'Dota 2 SDK and VMProtect internals. Always happy to compare notes.',
+  },
+]
+export const techGroups = [
+  {
+    name: 'Languages',
+    items: ['C++', 'Rust', 'TypeScript', 'JavaScript', 'Kotlin', 'Swift'],
+  },
+  {
+    name: 'Applications & web',
+    items: ['Qt', '.NET', 'Node.js', 'Next.js', 'Vue.js', 'FastAPI', 'MySQL'],
+  },
+  {
+    name: 'Tools & creative work',
+    items: ['Nix', 'Gradle', 'FFmpeg', 'Tampermonkey', 'Figma', 'Gimp'],
+  },
+]
+export type Category = 'All' | 'Desktop' | 'Automation' | 'Experiments'
 export type Project = {
+  slug: string
   name: string
   description: string
   stack: string[]
-  href?: string
+  href: string
+  category: Exclude<Category, 'All'>
   status: 'shipped' | 'in progress' | 'archived'
+  featured?: boolean
 }
-
 export const projects: Project[] = [
   {
-    name: 'Dota2CFGChanger',
-    description: 'Standalone C++ application for managing Dota 2 configs. Built with ImGui + GLFW + cpr.',
+    slug: 'dota-config',
+    name: 'Dota 2 Config Manager',
+    description:
+      'Your Dota 2 setup, on another Steam account. A native utility to copy configurations, keep backups and skip the manual work.',
     stack: ['C++', 'ImGui', 'GLFW'],
     href: 'https://github.com/OutTuna/Dota2CFGChanger',
+    category: 'Desktop',
     status: 'shipped',
+    featured: true,
   },
   {
-    name: 'Valorant-Shop-Tauri',
-    description: 'Check the Valorant store without logging into the game. Built with Tauri and Rust.',
+    slug: 'valorant-store',
+    name: 'Valorant Store',
+    description:
+      'Your daily shop and Night Market, without launching the game. A desktop app with a Rust backend and a Tauri interface.',
     stack: ['TypeScript', 'Tauri', 'Rust'],
     href: 'https://github.com/OutTuna/Valorant-Shop-Tauri',
+    category: 'Desktop',
     status: 'shipped',
+    featured: true,
   },
   {
-    name: 'SoundCloud_Downloader_Bot',
-    description: 'Telegram bot for downloading SoundCloud tracks directly in chat using inline mode.',
-    stack: ['Python'],
+    slug: 'soundcloud-bot',
+    name: 'SoundCloud Downloader Bot',
+    description:
+      'Download SoundCloud tracks directly in Telegram, including inline mode. A small bot that keeps the workflow in your chat.',
+    stack: ['Python', 'Telegram'],
     href: 'https://github.com/OutTuna/SoundCloud_Downloader_Bot',
+    category: 'Automation',
     status: 'shipped',
   },
   {
+    slug: 'picture-dropper',
     name: 'PictureDropper',
-    description: 'Bridge bot that drops pictures from Telegram to Discord channels.',
-    stack: ['Python'],
+    description:
+      'A bridge between Telegram and Discord. Drop a picture in one place and let the bot carry it to the other.',
+    stack: ['Python', 'Discord'],
     href: 'https://github.com/OutTuna/PictureDropper',
+    category: 'Automation',
     status: 'shipped',
   },
   {
-    name: 'Invoker-game-hack',
-    description: 'Userscript hack for invoker-game.com with enhanced gameplay features.',
+    slug: 'invoker-game',
+    name: 'Invoker Game Userscript',
+    description:
+      'An experiment in browser scripting that adds gameplay helpers to invoker-game.com.',
     stack: ['JavaScript', 'Tampermonkey'],
     href: 'https://github.com/OutTuna/Invoker-game-hack',
+    category: 'Experiments',
     status: 'shipped',
   },
   {
-    name: 'password-generator-android',
-    description: 'Simple and lightweight password generator application for Android.',
-    stack: ['Kotlin'],
+    slug: 'password-generator',
+    name: 'Password Generator',
+    description:
+      'A lightweight Android application for generating passwords. A focused utility built with Kotlin.',
+    stack: ['Kotlin', 'Android'],
     href: 'https://github.com/OutTuna/password-generator-android',
+    category: 'Experiments',
     status: 'shipped',
   },
   {
-    name: 'NixOS-ServerSideClient',
-    description: 'NixOS configuration for server-side deployment and management.',
-    stack: ['Nix'],
+    slug: 'nixos',
+    name: 'NixOS Server Configuration',
+    description:
+      'A declarative NixOS configuration for deploying and managing a server. Infrastructure kept in code.',
+    stack: ['Nix', 'NixOS'],
     href: 'https://github.com/OutTuna/NixOS-ServerSideClient',
+    category: 'Automation',
     status: 'shipped',
   },
   {
-    name: 'CSharp_Labs',
-    description: 'Collection of C# laboratory assignments and learning exercises.',
+    slug: 'csharp-labs',
+    name: 'C# Labs',
+    description:
+      'Laboratory assignments and learning exercises in C# and .NET.',
     stack: ['C#', '.NET'],
     href: 'https://github.com/OutTuna/CSharp_Labs',
+    category: 'Experiments',
     status: 'shipped',
   },
   {
-    name: 'SDA-IOS',
-    description: 'iOS application built with Swift for learning and development purposes.',
-    stack: ['Swift'],
+    slug: 'sda-ios',
+    name: 'SDA iOS',
+    description:
+      'An iOS application built while learning Swift and exploring native app development.',
+    stack: ['Swift', 'iOS'],
     href: 'https://github.com/OutTuna/SDA-IOS',
+    category: 'Experiments',
     status: 'shipped',
   },
   {
-    name: 'Data_Course',
-    description: 'Laboratory assignments and exercises from data structures course.',
+    slug: 'data-course',
+    name: 'Data Structures',
+    description:
+      'Coursework, laboratory assignments and experiments with data structures in C++.',
     stack: ['C++'],
     href: 'https://github.com/OutTuna/Data_Course',
+    category: 'Experiments',
     status: 'shipped',
   },
   {
+    slug: 'lap-tracker',
     name: 'LapTracker',
-    description: 'Roblox Lua script for tracking and analyzing racing lap times.',
-    stack: ['Lua'],
+    description:
+      'A Roblox Lua script for tracking racing laps and looking into lap times.',
+    stack: ['Lua', 'Roblox'],
     href: 'https://github.com/OutTuna/LapTracker',
+    category: 'Experiments',
     status: 'shipped',
   },
   {
-    name: 'SoundCloud-Ultimate-Downloader',
-    description: 'Complete SoundCloud downloader with batch processing capabilities.',
+    slug: 'soundcloud-downloader',
+    name: 'SoundCloud Ultimate Downloader',
+    description:
+      'An earlier SoundCloud downloader with batch processing. Kept in the archive for reference.',
     stack: ['JavaScript'],
     href: 'https://github.com/OutTuna/SoundCloud-Ultimate-Downloader',
+    category: 'Automation',
     status: 'archived',
   },
 ]
-
-export const commands = [
-  { id: 'about', label: 'go to about', section: 'about' },
-  { id: 'stack', label: 'go to tech stack', section: 'stack' },
-  { id: 'projects', label: 'go to projects', section: 'projects' },
-  { id: 'stats', label: 'go to github stats', section: 'stats' },
-  { id: 'contact', label: 'go to contact', section: 'contact' },
-]
+export const featuredProjects = projects.filter((project) => project.featured)
