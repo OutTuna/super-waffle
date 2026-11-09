@@ -178,3 +178,15 @@ export const projects: Project[] = [
   },
 ]
 export const featuredProjects = projects.filter((project) => project.featured)
+
+// "What's new" log on the home page. Newest first; dates as YYYY-MM-DD.
+export const news = [
+  {
+    date: '2026-11-09',
+    text: 'The whole site got rebuilt in the spirit of 2003. Stars, marquees and 88x31 buttons are back!',
+  },
+  {
+    date: '2026-11-09',
+    text: 'Added a guestbook placeholder. Real guestbook is under construction.',
+  },
+]

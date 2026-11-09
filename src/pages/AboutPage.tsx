@@ -1,109 +1,89 @@
+import { useState } from 'react'
 import { useI18n } from '../i18n'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { about, now, profile, techGroups } from '../data/content'
+import Box from '../components/Box'
 
 export default function AboutPage() {
   const { t } = useI18n()
+  // Pulled live from GitHub; falls back to the monogram if it can't load.
+  const [avatarFailed, setAvatarFailed] = useState(false)
   return (
-    <div className="wrap page about-page">
-      <header className="page-heading">
-        <p className="eyebrow">{t('THE PERSON BEHIND THE CODE')}</p>
-        <h1>
-          {t('Hi, I’m Gleb.')}
-          <br />
-          <em>{t('OutTuna, online.')}</em>
-        </h1>
-      </header>
-      <div className="about-intro">
-        <div className="about-copy">
-          {about.map((paragraph) => (
-            <p key={t(paragraph)}>{t(paragraph)}</p>
-          ))}
-          <a
-            className="text-link"
-            href={profile.github}
-            target="_blank"
-            rel="noreferrer"
-          >
-            github.com/OutTuna <ArrowUpRight size={16} />
-          </a>
-        </div>
-        <aside className="profile-card">
-          <div className="profile-monogram" aria-hidden="true">
-            ot<span>✦</span>
+    <>
+      <Box title={t('About me')} tone="purple">
+        <div className="about-card">
+          <div className="avatar">
+            {avatarFailed ? (
+              <span aria-hidden="true">ot</span>
+            ) : (
+              <img
+                src={`https://github.com/${profile.handle}.png?size=192`}
+                alt={t('My GitHub avatar')}
+                width={90}
+                height={90}
+                onError={() => setAvatarFailed(true)}
+              />
+            )}
           </div>
-          <p className="eyebrow">{t('OUTTUNA / GLEB')}</p>
-          <p>
-            {t('Part developer.')}
-            <br />
-            {t('Part musician.')}
-            <br />
-            <em>{t('Entirely curious.')}</em>
-          </p>
-          <div className="profile-card-rule" />
-          <span className="mono">
-            {t('Making things, figuring things out.')}
-          </span>
-        </aside>
-      </div>
-      <section className="about-section">
-        <p className="eyebrow">{t('RIGHT NOW')}</p>
-        <h2>
-          {t('Somewhere between')}
-          <br />
-          {t('learning and building.')}
-        </h2>
-        <div className="now-grid">
-          {now.map((item, index) => (
-            <article key={item.title}>
-              <span className="mono">
-                0{index + 1} / {t(item.title).toUpperCase()}
-              </span>
-              <p>{t(item.text)}</p>
-            </article>
-          ))}
+          <div>
+            <table className="facts">
+              <tbody>
+                <tr>
+                  <th scope="row">{t('Name')}:</th>
+                  <td>{t(profile.name)}</td>
+                </tr>
+                <tr>
+                  <th scope="row">{t('Nickname')}:</th>
+                  <td>{profile.handle}</td>
+                </tr>
+                <tr>
+                  <th scope="row">{t('Mood')}:</th>
+                  <td>{t('compiling')} 😴</td>
+                </tr>
+                <tr>
+                  <th scope="row">{t('Into')}:</th>
+                  <td>{profile.roles.map((role) => t(role)).join(', ')}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </section>
-      <section className="about-section">
-        <p className="eyebrow">{t('THE TOOLBOX')}</p>
-        <h2>
-          {t('Different tools.')}
-          <br />
-          {t('The same curiosity.')}
-        </h2>
-        <p className="section-description">
-          {t(
-            'Technologies I use, learn and experiment with. The project decides the tool.',
-          )}
-        </p>
+        {about.map((paragraph) => (
+          <p key={paragraph}>{t(paragraph)}</p>
+        ))}
+      </Box>
+
+      <Box title={t('Right now')} tone="green">
+        <ul className="star-list">
+          {now.map((item) => (
+            <li key={item.title}>
+              <strong>{t(item.title)}:</strong> {t(item.text)}
+            </li>
+          ))}
+        </ul>
+      </Box>
+
+      <Box title={t('My toolbox')}>
         <div className="toolbox">
           {techGroups.map((group) => (
-            <div className="toolbox-row" key={t(group.name)}>
+            <div key={group.name}>
               <h3>{t(group.name)}</h3>
-              <div className="tags">
+              <ul className="star-list">
                 {group.items.map((item) => (
-                  <span key={item}>{item}</span>
+                  <li key={item}>{item}</li>
                 ))}
-              </div>
+              </ul>
             </div>
           ))}
         </div>
-      </section>
-      <div className="contact-panel">
-        <div>
-          <p className="eyebrow">{t('FOLLOW THE THREAD')}</p>
-          <h2>{t('Curious what that looks like?')}</h2>
-          <p>
-            {t(
-              'The projects are a better introduction than a list of technologies.',
-            )}
-          </p>
-        </div>
-        <a className="button" href="#/projects">
-          {t('Browse the archive')}
-          <ArrowRight size={16} />
-        </a>
-      </div>
-    </div>
+      </Box>
+
+      <Box title={t('Find me')} tone="red">
+        <p className="center">
+          <a href={profile.github} target="_blank" rel="noreferrer">
+            github.com/{profile.handle}
+          </a>
+        </p>
+      </Box>
+    </>
   )
 }

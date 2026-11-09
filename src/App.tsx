@@ -1,42 +1,59 @@
+import { useEffect, useRef } from 'react'
 import { useI18n } from './i18n'
-import { useEffect, useRef, useState } from 'react'
-import SiteHeader from './components/SiteHeader'
+import { useRoute } from './hooks/useRoute'
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
 import Footer from './components/Footer'
-import CommandPalette from './components/CommandPalette'
+import Sparkles from './components/Sparkles'
+import Box from './components/Box'
 import HomePage from './pages/HomePage'
 import ProjectsPage from './pages/ProjectsPage'
 import AboutPage from './pages/AboutPage'
-import { useRoute } from './hooks/useRoute'
+import GuestbookPage from './pages/GuestbookPage'
+
+const titles: Record<string, string> = {
+  '/': 'Home',
+  '/projects': 'Projects',
+  '/about': 'About me',
+  '/guestbook': 'Guestbook',
+}
 
 export default function App() {
   const { t } = useI18n()
   const route = useRoute()
-  const [paletteOpen, setPaletteOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
   const previousRoute = useRef(route)
+
   useEffect(() => {
     if (previousRoute.current !== route) {
       window.scrollTo({ top: 0, behavior: 'instant' })
       mainRef.current?.focus({ preventScroll: true })
       previousRoute.current = route
     }
-    const title =
-      route === '/'
-        ? t('Small tools. Less friction.')
-        : route === '/projects'
-          ? t('Projects')
-          : route === '/about'
-            ? t('About')
-            : t('Page not found')
-    document.title = `${title} — OutTuna`
+    const title = titles[route] ? t(titles[route]) : t('Page not found')
+    document.title = `~*~ ${title} ~*~ fellfromheaven`
   }, [route, t])
+
+  let page
+  if (route === '/') page = <HomePage />
+  else if (route === '/projects') page = <ProjectsPage />
+  else if (route === '/about') page = <AboutPage />
+  else if (route === '/guestbook') page = <GuestbookPage />
+  else
+    page = (
+      <Box title={t('Error 404')} tone="red">
+        <p className="big-404">404</p>
+        <p className="center">
+          {t('This page fell from heaven and never landed.')}
+        </p>
+        <p className="center">
+          <a href="#/">&lt;&lt; {t('Back to home')}</a>
+        </p>
+      </Box>
+    )
+
   return (
     <>
-      <div className="starfield" aria-hidden="true">
-        <div />
-        <div />
-        <div />
-      </div>
       <a
         className="skip-link"
         href="#main"
@@ -47,33 +64,17 @@ export default function App() {
       >
         {t('Skip to content')}
       </a>
-      <SiteHeader route={route} onSearch={() => setPaletteOpen(true)} />
-      <main ref={mainRef} id="main" tabIndex={-1}>
-        {route === '/' ? (
-          <HomePage />
-        ) : route === '/projects' ? (
-          <ProjectsPage />
-        ) : route === '/about' ? (
-          <AboutPage />
-        ) : (
-          <section className="wrap page not-found">
-            <p className="eyebrow">{t('404 / Lost in the stars')}</p>
-            <h1>
-              {t('Nothing here.')}
-              <br />
-              <em>{t('Yet.')}</em>
-            </h1>
-            <p className="lead">
-              {t('That page doesn’t exist. There’s still plenty to explore.')}
-            </p>
-            <a className="button" href="#/">
-              {t('Back to home')}
-            </a>
-          </section>
-        )}
-      </main>
-      <Footer />
-      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      <div className="page">
+        <Header />
+        <div className="layout">
+          <Sidebar route={route} />
+          <main ref={mainRef} id="main" tabIndex={-1}>
+            {page}
+          </main>
+        </div>
+        <Footer />
+      </div>
+      <Sparkles />
     </>
   )
 }
